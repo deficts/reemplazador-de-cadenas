@@ -1,2 +1,2 @@
-# reemplazador-de-cadenas
+# Reemplazador de cadenas
 Proyecto de primer parcial de la materia de matemáticas computacionales

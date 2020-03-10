@@ -41,19 +41,19 @@ public class Estado {
         return false;
     }
 
-    public Estado salto(char x){
+    public Estado salto(char x) {
         Estado nuevo = new Estado();
 
-        for (Arista a : salidas){
-            if (a.getLlave() == x){
-                return a.getFin();
+        for (Arista a : this.salidas) {
+            if (a.getLlave() == x) {
+                nuevo = a.getFin();
             }
         }
         return nuevo;
     }
 
     public void removeSalida(char x){
-        Iterator<Arista> it = salidas.iterator();
+        Iterator<Arista> it = this.salidas.iterator();
         while(it.hasNext()){
             Arista a = it.next();
             if(a.getLlave()==x){
@@ -61,4 +61,15 @@ public class Estado {
             }
         }
     }
+
+    public Estado desde(char x){
+        Estado nuevo = new Estado();
+        for(Arista a : this.entradas){
+            if(a.getLlave() == x){
+                nuevo = a.getInicio();
+            }
+        }
+        return nuevo;
+    }
+
 }

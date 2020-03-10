@@ -2,7 +2,6 @@ package com.deficts;
 
 public class AFN {
 
-    private final char epsilon = 'E';
     private Estado inicial;
     private Estado actual;
 
@@ -13,6 +12,10 @@ public class AFN {
 
     public Estado getInicial() {
         return inicial;
+    }
+
+    public void quitarInicial(){
+        inicial = null;
     }
 
     public Estado getActual() {
@@ -31,7 +34,7 @@ public class AFN {
 
     public Estado suma(Estado n){
         Estado e = new Estado();
-        Arista epsilon = new Arista(this.epsilon,n,e);
+        Arista epsilon = new Arista('?',n,e);
         n.addSalida(epsilon);
         e.addEntrada(epsilon);
         this.actual = e;

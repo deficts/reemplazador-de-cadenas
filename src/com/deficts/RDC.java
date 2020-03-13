@@ -1,5 +1,6 @@
 package com.deficts;
 
+import javax.swing.*;
 import java.util.Stack;
 
 public class RDC {
@@ -85,11 +86,44 @@ public class RDC {
         return null;
     }
 
+    public static String nuevoString(String cadena, String expReg, String sustituto){
+        int offset = sustituto.length();
+        String ret="";
+        for (int i = 0; i < cadena.length(); i++) {
+            System.out.println(i);
+            String revisar = "";
+            boolean hayExpresion = false;
+            boolean fin = false;
+            for(int j=i; j<cadena.length();j++) {
+                revisar += cadena.charAt(j);
+                System.out.println(revisar);
+                System.out.println(comparar(revisar, expReg));
+                if (comparar(revisar, expReg)) {
+                    hayExpresion = true;
+                }
+                if (hayExpresion && !comparar(revisar, expReg)){
+                    ret+=sustituto;
+                    i=j-1;
+                    break;
+                }
+                if(j+1==cadena.length()){
+                    fin=true;
+                }
+            }
+            if(!hayExpresion){
+                ret+=cadena.charAt(i);
+            }else if(hayExpresion && fin){
+                ret+=sustituto;
+                break;
+            }
+        }
+        return ret;
+    }
+
     public static void main(String[] args) {
         System.out.println(comparar("?", "a*"));
         System.out.println(comparar("a","abc*"));
         System.out.println(comparar("tcsssssss","a+baca+b*+c*+tcs*"));
-        System.out.println(comparar("a","abc*"));
-
+        System.out.println(comparar("bbb","aba*+bbb*"));
     }
 }

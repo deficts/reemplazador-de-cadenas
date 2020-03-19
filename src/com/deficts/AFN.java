@@ -1,5 +1,8 @@
 package com.deficts;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class AFN {
 
     private Estado inicial;
@@ -48,5 +51,15 @@ public class AFN {
         Arista a = new Arista(x,this.actual,this.actual);
         this.actual.addEntrada(a);
         this.actual.addSalida(a);
+    }
+
+    @Override
+    public String toString() {
+        String afn = "q1:\n";
+        afn+=this.inicial.toString()+"\n";
+        for (Arista a: inicial.getSalidas()) {
+            afn+=this.inicial.salto(a.getLlave());
+        }
+        return afn;
     }
 }

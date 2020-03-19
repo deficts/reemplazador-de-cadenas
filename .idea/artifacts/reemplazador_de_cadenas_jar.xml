@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="reemplazador-de-cadenas:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/reemplazador_de_cadenas_jar</output-path>
+    <root id="archive" name="reemplazador-de-cadenas.jar">
+      <element id="module-output" name="reemplazador-de-cadenas" />
+    </root>
+  </artifact>
+</component>

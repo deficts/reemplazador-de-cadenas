@@ -22,4 +22,9 @@ public class Arista {
     public Estado getInicio() {
         return inicio;
     }
+
+    @Override
+    public String toString() {
+        return "Llave: " + llave;
+    }
 }

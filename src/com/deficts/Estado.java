@@ -1,14 +1,16 @@
 package com.deficts;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 public class Estado {
     private boolean esFinal = false;
 
-    private List<Arista> salidas = new ArrayList<Arista>();
-    private List<Arista> entradas = new ArrayList<Arista>();
+    private List<Arista> salidas = new ArrayList<>();
+    private List<Arista> entradas = new ArrayList<>();
 
     public void setFinal(boolean esFinal){
         this.esFinal= esFinal;
@@ -72,4 +74,9 @@ public class Estado {
         return nuevo;
     }
 
+    public String toString() {
+        String entradas = Arrays.toString(this.entradas.toArray());
+        String salidas = Arrays.toString(this.salidas.toArray());
+        return "<----Estado \n"+"Entradas \n"+entradas+"\n"+"Salidas \n"+salidas+"------>";
+    }
 }

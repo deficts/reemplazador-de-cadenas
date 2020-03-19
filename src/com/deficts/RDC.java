@@ -1,6 +1,8 @@
 package com.deficts;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Stack;
 
 public class RDC {
@@ -47,13 +49,14 @@ public class RDC {
             }
             i++;
         }
+        //System.out.println(afn.toString());
         return afn;
     }
     public static boolean comparar(String cadena, String expReg){
         boolean pertenece = false;
         AFN automata = crearAFN(expReg);
         Estado actual = automata.getInicial();
-        if(actual.esFinal()){
+        if(actual.esFinal() && pertenece){
             return true;
         }
         char [] elementos = cadena.toCharArray();
@@ -63,7 +66,8 @@ public class RDC {
         for (char x : elementos){
             temporal = buscarAFN(actual,x);
             if(temporal==null){
-                return false;
+                pertenece = false;
+                break caracteres;
             }
             actual = temporal.salto(x);
             if(actual.esFinal()){
@@ -72,9 +76,34 @@ public class RDC {
             }
             pertenece=false;
         }
+        Estado ramificacion = automata.getInicial();
+        ramas:
+        while(ramificacion.containsSalida('?') && pertenece == false){
+            actual = ramificacion.salto('?');
+            temporal = new Estado();
+            caracteres:
+            for (char x : elementos){
+                temporal = buscarAFN(actual,x);
+                if(temporal==null){
+                    pertenece = false;
+                    break caracteres;
+                }
+                actual = temporal.salto(x);
+                if(actual.esFinal()){
+                    pertenece=true;
+                    continue caracteres;
+                }
+                pertenece=false;
+            }
+            if(pertenece == true){
+                break ramas;
+            }
+            ramificacion=ramificacion.salto('?');
+        }
         return pertenece;
     }
     public static Estado buscarAFN(Estado q, char x){
+        //System.out.println(x) ;
         if(q.containsSalida(x)){
             return q;
         }
@@ -90,14 +119,14 @@ public class RDC {
         int offset = sustituto.length();
         String ret="";
         for (int i = 0; i < cadena.length(); i++) {
-            System.out.println(i);
+            //System.out.println(i);
             String revisar = "";
             boolean hayExpresion = false;
             boolean fin = false;
             for(int j=i; j<cadena.length();j++) {
                 revisar += cadena.charAt(j);
-                System.out.println(revisar);
-                System.out.println(comparar(revisar, expReg));
+                //System.out.println(revisar);
+                //System.out.println(comparar(revisar, expReg));
                 if (comparar(revisar, expReg)) {
                     hayExpresion = true;
                 }
@@ -121,9 +150,17 @@ public class RDC {
     }
 
     public static void main(String[] args) {
-        System.out.println(comparar("?", "a*"));
-        System.out.println(comparar("a","abc*"));
-        System.out.println(comparar("tcsssssss","a+baca+b*+c*+tcs*"));
-        System.out.println(comparar("bbb","aba*+bbb*"));
+        System.out.println(comparar("ana","arra+aca+ana"));
+        /*Scanner in = new Scanner(System.in);
+        while (true) {
+        System.out.println("Ingresa la cadena: ");
+        String cadena = in.nextLine();
+        System.out.println("Ingresa la expresion regular: ");
+        String expReg = in.nextLine();
+        System.out.println("Ingresa el sustituto: ");
+        String sust = in.nextLine();
+        System.out.println("El resultado es: ");
+        System.out.println(nuevoString(cadena, expReg, sust));
+        }*/
     }
 }

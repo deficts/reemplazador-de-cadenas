@@ -46,6 +46,7 @@ public class Interfaz extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
+        System.setProperty("java.awt.headless", "false");
         Interfaz i = new Interfaz();
         i.llenarInterfaz();
     }
